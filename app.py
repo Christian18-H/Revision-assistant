@@ -4,7 +4,8 @@ import json
 import requests
 
 # Your Gemini API Key
-GEMINI_API_KEY = "AIzaSyDVLjmWaDUyAfgY7RIqFmlUfqObrev5zAk"
+API_KEY = "AIzaSyDVLjmWaDUyAfgY7RIqFmlUfqObrev5zAk"
+API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY
 
 # Function to call Gemini API
 def analyze_results(patient_data):
@@ -53,4 +54,3 @@ if uploaded_file is not None:
             response = analyze_results(patient_data)
         st.subheader("🧠 AI Recommendation")
         st.markdown(response)
-
