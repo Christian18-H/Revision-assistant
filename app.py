@@ -1,21 +1,16 @@
 import streamlit as st
 import os
-import json
-import requests
 import google.generativeai as genai
 
-# Your Gemini API Key
-genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
+# Gemini API Key (replace with your real key or use environment variable)
 GEMINI_API_KEY = "AIzaSyDVLjmWaDUyAfgY7RIqFmlUfqObrev5zAk"
-API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY
+genai.configure(api_key=GEMINI_API_KEY)
 
-# Function to call Gemini API
+# Load Gemini model
+model = genai.GenerativeModel("models/gemini-1.5-flash")
+
+# Function to call Gemini SDK
 def analyze_results(patient_data):
-    headers = {
-        "Content-Type": "application/json"
-    }
-
     prompt = f"""
     A doctor has uploaded the following patient test results:
 
@@ -24,20 +19,11 @@ def analyze_results(patient_data):
     Analyze the results and give a short summary with possible medical conditions (if any),
     and recommend follow-up actions or advice to the patient.
     """
-
-    data = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }]
-    }
-
-    response = requests.post(API_URL, headers=headers, data=json.dumps(data))
-
-    if response.status_code == 200:
-        output = response.json()
-        return output["candidates"][0]["content"]["parts"][0]["text"]
-    else:
-        return f"Error: {response.status_code} - {response.text}"
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        return f"Error: {e}"
 
 # Streamlit UI
 st.set_page_config(page_title="AI Medical Assistant", layout="centered")
