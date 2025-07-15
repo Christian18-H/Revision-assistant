@@ -2,8 +2,11 @@ import streamlit as st
 import os
 import json
 import requests
+import google.generativeai as genai
 
 # Your Gemini API Key
+genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
 GEMINI_API_KEY = "AIzaSyDVLjmWaDUyAfgY7RIqFmlUfqObrev5zAk"
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY
 
