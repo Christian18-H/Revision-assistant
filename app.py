@@ -4,8 +4,7 @@ import json
 import requests
 
 # Your Gemini API Key
-API_KEY = "YOUR_GEMINI_API_KEY"
-API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY
+GEMINI_API_KEY = "AIzaSyDVLjmWaDUyAfgY7RIqFmlUfqObrev5zAk"
 
 # Function to call Gemini API
 def analyze_results(patient_data):
